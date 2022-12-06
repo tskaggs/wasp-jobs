@@ -4,6 +4,7 @@ import createTask from '@wasp/actions/createTask'
 import updateTask from '@wasp/actions/updateTask'
 import logout from '@wasp/auth/logout.js'
 import Clocks from './Clocks'
+import './Main.css'
 
 const MainPage = ({ user }) => {
   const { data: tasks, isFetching, error } = useQuery(getTasks)
@@ -16,7 +17,7 @@ const MainPage = ({ user }) => {
 
       {isFetching && 'Fetching...'}
       {error && 'Error: ' + error}
-      <button onClick={logout}> Logout </button>
+      <button onClick={logout} class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"> Logout </button>
       <div> <Clocks /> </div>
     </div>
   )
