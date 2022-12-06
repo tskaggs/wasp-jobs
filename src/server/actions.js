@@ -1,5 +1,17 @@
 import HttpError from '@wasp/core/HttpError.js'
 
+export const createCompany = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+  return context.entities.Company.create({
+    data: {
+      name: args.name,
+      website: args.website,
+      description: args.description,
+      user: { connect: { id: context.user.id } }
+    }
+  })
+}
+
 export const createTask = async (args, context) => {
   if (!context.user) { throw new HttpError(401) }
   return context.entities.Task.create({

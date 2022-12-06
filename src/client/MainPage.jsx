@@ -1,17 +1,22 @@
 import getTasks from '@wasp/queries/getTasks'
+import getCompany from '@wasp/queries/getCompany'
 import { useQuery } from '@wasp/queries'
 import createTask from '@wasp/actions/createTask'
 import updateTask from '@wasp/actions/updateTask'
 import logout from '@wasp/auth/logout.js'
 import './Main.css'
+import AddCompanyAlert from './company/AddCompanyAlert'
+import MainHeader from './components/MainHeader'
 
 const MainPage = ({ user }) => {
   const { data: tasks, isFetching, error } = useQuery(getTasks)
+  const { data: company, isFetchingCompany, errorCompany } = useQuery(getCompany)
 
   return (
     <div>
-      <NewTaskForm />
-
+      <MainHeader/>
+      {!company && <AddCompanyAlert/>}
+      <NewTaskForm/>
       {tasks && <TasksList tasks={tasks} />}
 
       {isFetching && 'Fetching...'}
