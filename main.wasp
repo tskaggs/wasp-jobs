@@ -1,0 +1,11 @@
+app jobs {
+  wasp: {
+    version: "^0.7.1"
+  },
+  title: "jobs"
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@client/MainPage"
+}
