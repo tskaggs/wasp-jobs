@@ -3,10 +3,10 @@ import { useQuery } from '@wasp/queries'
 import getCompany from '@wasp/queries/getCompany'
 
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import updateCompany from '@wasp/actions/updateCompany'
 import createCompany from '@wasp/actions/createCompany'
-import { errorMessage } from '@wasp/utils.js'
+// import { errorMessage } from '@wasp/utils.js'
 
 const ManageCompanyPage = () => {
   const {

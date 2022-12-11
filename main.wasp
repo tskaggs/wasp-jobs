@@ -55,7 +55,7 @@ page MainPage {
   authRequired: true,
   component: import Main from "@client/MainPage"
 }
-route ManageCompanyRoute { path: "/updatecompany", to: ManageCompanyPage }
+route ManageCompanyRoute { path: "/managecompany", to: ManageCompanyPage }
 page ManageCompanyPage {
   authRequired: true,
   component: import ManageCompanyPage from "@client/company/ManageCompanyPage"

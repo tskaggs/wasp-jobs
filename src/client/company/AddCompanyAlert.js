@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { MegaphoneIcon } from '@heroicons/react/24/outline'
 
 const AddCompanyAlert = () => {
   return (

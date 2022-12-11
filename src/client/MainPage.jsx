@@ -13,8 +13,6 @@ const MainPage = ({ user }) => {
   const { data: tasks, isFetching, error } = useQuery(getTasks)
   const {
     data: company,
-    isFetching: isFetchingCompany,
-    error: errorCompany
   } = useQuery(getCompany)
 
   return (
