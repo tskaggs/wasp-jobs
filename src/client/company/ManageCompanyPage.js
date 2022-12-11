@@ -1,12 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useQuery } from '@wasp/queries'
 import getCompany from '@wasp/queries/getCompany'
 
 import React, { useState } from 'react'
-// import { useHistory } from 'react-router-dom'
 import updateCompany from '@wasp/actions/updateCompany'
 import createCompany from '@wasp/actions/createCompany'
-// import { errorMessage } from '@wasp/utils.js'
 
 const ManageCompanyPage = () => {
   const {
@@ -26,7 +24,7 @@ const ManageCompanyPage = () => {
         <div className="w-full max-w-md space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Update Company
+              Manage Company
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
@@ -43,7 +41,7 @@ const ManageCompanyPage = () => {
 }
 
 const ManageCompanyView = (props) => {
-  // const history = useHistory()
+  const history = useHistory()
   const company = props.company
   const [nameFieldVal, setNameFieldVal] = useState(company?.name || '')
   const [descriptionFieldVal, setDescriptionFieldVal] = useState(company?.description || '')
@@ -68,22 +66,45 @@ const ManageCompanyView = (props) => {
           website: websiteFieldVal
         })
       }
-      // reset defaults
-      setNameFieldVal('')
-      setDescriptionFieldVal('')
-      setWebsiteFieldVal('')
 
-      // reroute?
-      // history.push('/')
+      history.push({
+        pathname: '/success',
+        data: {
+          status: 'success 👍',
+          verbage: 'Company has been successfully managed.',
+          links: [
+            {
+              to: '/',
+              label: 'Go to dashboard',
+              icon: 'squares-2x2'
+            },
+
+          ]
+        }
+      })
     } catch (error) {
       console.log(error)
-      window.alert('Error while updating company: ' + error.message)
+      history.push({
+        pathname: '/success',
+        data: {
+          status: 'failure 😵',
+          verbage: 'Company management has failed.',
+          links: [
+            {
+              to: '/',
+              label: 'Go to dashboard',
+              icon: 'squares-2x2'
+            },
+
+          ]
+        }
+      })
     }
   }
 
   return (
     <>
-      <form onSubmit={handleSave} className="mt-8 space-y-6" action="#" method="POST">
+      <form onSubmit={handleSave} className="mt-8 space-y-6">
         <div className="-space-y-px rounded-md shadow-sm">
           <div>
             <label htmlFor="name" className="sr-only">
