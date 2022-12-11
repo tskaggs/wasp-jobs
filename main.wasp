@@ -3,6 +3,9 @@ app jobs {
     version: "^0.7.1"
   },
   title: "Wasp Jobs",
+  head: [
+    "<meta name=\"description\" content=\"A Job site for Wasp Lang.\">"
+  ],
 
   auth: {
     // Expects entity User to have (username:String) and (password:String) fields.
