@@ -55,10 +55,10 @@ page MainPage {
   authRequired: true,
   component: import Main from "@client/MainPage"
 }
-route AddCompanyRoute { path: "/addcompany", to: AddCompanyPage }
-page AddCompanyPage {
+route ManageCompanyRoute { path: "/updatecompany", to: ManageCompanyPage }
+page ManageCompanyPage {
   authRequired: true,
-  component: import AddCompanyPage from "@client/company/AddCompanyPage"
+  component: import ManageCompanyPage from "@client/company/ManageCompanyPage"
 }
 route SignupRoute { path: "/signup", to: SignupPage }
 page SignupPage {
@@ -75,6 +75,11 @@ query getCompany {
 }
 action createCompany {
   fn: import { createCompany } from "@server/actions.js",
+  entities: [Company]
+}
+
+action updateCompany {
+  fn: import { updateCompany } from "@server/actions.js",
   entities: [Company]
 }
 

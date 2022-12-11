@@ -19,32 +19,39 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logout from '@wasp/auth/logout.js'
 
-const solutions = [
+// Rename to company_tools? Add a talent section?
+const tools = [
   {
     name: 'Analytics',
     description: 'Get a better understanding of where your traffic is coming from.',
-    href: '#',
+    link: '/updatecompany',
     icon: ChartBarIcon,
   },
   {
-    name: 'Engagement',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
+    name: 'Manage Company',
+    description: 'Get a better understanding of where your traffic is coming from.',
+    link: '/managecompany',
     icon: CursorArrowRaysIcon,
-  },
-  { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
-  {
-    name: 'Integrations',
-    description: "Connect with third-party tools that you're already using.",
-    href: '#',
-    icon: Squares2X2Icon,
-  },
-  {
-    name: 'Automations',
-    description: 'Build strategic funnels that will drive your customers to convert',
-    href: '#',
-    icon: ArrowPathIcon,
-  },
+  }
+  // {
+  //   name: 'Engagement',
+  //   description: 'Speak directly to your customers in a more meaningful way.',
+  //   href: '#',
+  //   icon: CursorArrowRaysIcon,
+  // },
+  // { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
+  // {
+  //   name: 'Integrations',
+  //   description: "Connect with third-party tools that you're already using.",
+  //   href: '#',
+  //   icon: Squares2X2Icon,
+  // },
+  // {
+  //   name: 'Automations',
+  //   description: 'Build strategic funnels that will drive your customers to convert',
+  //   href: '#',
+  //   icon: ArrowPathIcon,
+  // },
 ]
 const callsToAction = [
   { name: 'Watch Demo', href: '#', icon: PlayIcon },
@@ -108,7 +115,7 @@ const MainHeader = () => {
                       'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                     )}
                   >
-                    <span>Solutions</span>
+                    <span>Tools</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? 'text-gray-600' : 'text-gray-400',
@@ -130,18 +137,17 @@ const MainHeader = () => {
                     <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {solutions.map((item) => (
-                            <a
+                          {tools.map((item) => (
+                            <Link
                               key={item.name}
-                              href={item.href}
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
+                              to={item.link}
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50">
                               <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">{item.name}</p>
                                 <p className="mt-1 text-sm text-gray-500">{item.description}</p>
                               </div>
-                            </a>
+                            </Link>
                           ))}
                         </div>
                         <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
@@ -283,7 +289,7 @@ const MainHeader = () => {
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
-                  {solutions.map((item) => (
+                  {tools.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}

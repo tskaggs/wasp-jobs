@@ -5,7 +5,6 @@ export const getCompany = async (args, context) => {
   const company = context.entities.Company.findUnique(
     { where: { userId: context.user.id } }
   )
-  console.log('getCompany', company)
   return company
 }
 
