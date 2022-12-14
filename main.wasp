@@ -143,3 +143,7 @@ query getJob {
   fn: import { getJob } from "@server/queries.js",
   entities: [Job]
 }
+query getPublishedJobs {
+  fn: import { getPublishedJobs } from "@server/queries.js",
+  entities: [Job]
+}

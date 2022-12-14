@@ -28,3 +28,19 @@ export const getJob = async (args, context) => {
   }
   return job
 }
+
+export const getPublishedJobs = async (args, context) => {
+  const jobs = context.entities.Job.findMany(
+    {
+      where: { published: true },
+      include: {
+        company: {
+          select: {
+            name: true
+          }
+        }
+      }
+    },
+  )
+  return jobs
+}

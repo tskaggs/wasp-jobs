@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import {
   BriefcaseIcon,
   CalendarIcon,
@@ -9,10 +11,9 @@ import {
 } from '@heroicons/react/20/solid'
 import publishJob from '@wasp/actions/publishJob'
 
-const ListingView = ({onOpen, job, companyId}) => {
-
+const ListingView = ({onOpen, job, companyId, isPublic}) => {
+  const [showPublic] = useState(isPublic ?? false)
   const publish = async () => {
-    // publishJob
     try {
       await publishJob({
         jobId: job.id,
@@ -31,10 +32,10 @@ const ListingView = ({onOpen, job, companyId}) => {
   }
 
   return (
-    <div className="lg:flex lg:items-center lg:justify-between py-3">
+    <div className="lg:flex lg:items-center lg:justify-between p-3 my-3 border border-yellow-500 rounded bg-yellow-50">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-          {job.title}
+          {job.title} {isPublic && `at ${job.company.name}`}
         </h2>
         <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
           <div className="mt-2 flex items-center text-sm text-gray-500">
@@ -56,6 +57,7 @@ const ListingView = ({onOpen, job, companyId}) => {
         </div>
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4">
+      {!showPublic && (
         <span className="hidden sm:block">
           <button
             onClick={() => onOpen()}
@@ -66,6 +68,7 @@ const ListingView = ({onOpen, job, companyId}) => {
             Edit
           </button>
         </span>
+      )}
 
         <span className="ml-3 hidden sm:block">
           <a
@@ -77,16 +80,18 @@ const ListingView = ({onOpen, job, companyId}) => {
           </a>
         </span>
 
-        <span className="sm:ml-3">
-          <button
-            onClick={() => publish()}
-            type="button"
-            className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            {job.published ? 'Unpublish' : 'Publish'}
-          </button>
-        </span>
+        {!showPublic && (
+          <span className="sm:ml-3">
+            <button
+              onClick={() => publish()}
+              type="button"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              {job.published ? 'Unpublish' : 'Publish'}
+            </button>
+          </span>
+        )}
       </div>
     </div>
   )

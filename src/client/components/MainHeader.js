@@ -50,7 +50,7 @@ const ProfileDropdown = ({ user }) => {
                 <Link
                   to={item.href}
                   className={classNames(
-                    active ? 'bg-gray-100' : '',
+                    active ? 'bg-gray-500' : '',
                     'block px-4 py-2 text-sm text-gray-700'
                   )}
                 >
@@ -78,7 +78,7 @@ const MainHeader = () => {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-yellow-100">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -94,15 +94,16 @@ const MainHeader = () => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => {
+                          let nav;
                           if (!item.private || (item.private && user)) {
-                            return (
+                            nav = (
                               <Link
                                 key={item.name}
                                 to={item.href}
                                 className={classNames(
                                   item.current
                                     ? 'bg-gray-900 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    : 'text-gray-700 hover:bg-gray-700 hover:text-white',
                                   'px-3 py-2 rounded-md text-sm font-medium'
                                 )}
                                 aria-current={item.current ? 'page' : undefined}
@@ -110,7 +111,9 @@ const MainHeader = () => {
                                 {item.name}
                               </Link>
                             )
-                          }}
+                          }
+                          return nav
+                        }
                         )}
                       </div>
                     </div>
@@ -120,12 +123,12 @@ const MainHeader = () => {
                       {user ?
                       (<ProfileDropdown user={user} />) : (<>
                       <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                        <Link to="/login" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                        <Link to="/login" className="whitespace-nowrap text-base font-medium text-gray-700 hover:text-gray-900">
                           Sign in
                         </Link>
                         <Link
                           to="/signup"
-                          className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-yellow-700"
                         >
                           Sign up
                         </Link>
