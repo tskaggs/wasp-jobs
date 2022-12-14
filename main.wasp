@@ -43,6 +43,23 @@ entity Company {=psl
     website     String
     user        User    @relation(fields: [userId], references: [id])
     userId      Int     @unique
+    jobs        Job[]
+psl=}
+
+entity Job {=psl
+    id          Int     @id @default(autoincrement())
+    title       String
+    description String
+    duration    String
+    link        String
+    contract    Boolean
+    compensation String
+    equity      String
+    location    String
+    benefits    Boolean
+    mvp         Boolean
+    company     Company    @relation(fields: [companyId], references: [id])
+    companyId   Int
 psl=}
 
 entity Task {=psl
@@ -62,6 +79,11 @@ route ManageCompanyRoute { path: "/managecompany", to: ManageCompanyPage }
 page ManageCompanyPage {
   authRequired: true,
   component: import ManageCompanyPage from "@client/company/ManageCompanyPage"
+}
+route ManageJobRoute { path: "/managejob", to: ManageJobPage }
+page ManageJobPage {
+  authRequired: true,
+  component: import ManageJobPage from "@client/jobs/ManageJobPage"
 }
 
 route SuccessRoute { path: "/success", to: SuccessPage }
@@ -87,10 +109,22 @@ action createCompany {
   fn: import { createCompany } from "@server/actions.js",
   entities: [Company]
 }
-
 action updateCompany {
   fn: import { updateCompany } from "@server/actions.js",
   entities: [Company]
+}
+
+query getJobs {
+  fn: import { getJobs } from "@server/queries.js",
+  entities: [Job]
+}
+action createJob {
+  fn: import { createJob } from "@server/actions.js",
+  entities: [Job]
+}
+action updateJob {
+  fn: import { updateJob } from "@server/actions.js",
+  entities: [Job]
 }
 
 query getTasks {

@@ -8,6 +8,14 @@ export const getCompany = async (args, context) => {
   return company
 }
 
+export const getJobs = async (args, context) => {
+  if (!args.companyId) { throw new HttpError(401) }
+  const job = context.entities.Job.findMany(
+    { where: { company: { id: args.companyId } } }
+  )
+  return job
+}
+
 export const getTasks = async (args, context) => {
   if (!context.user) { throw new HttpError(401) }
   return context.entities.Task.findMany(

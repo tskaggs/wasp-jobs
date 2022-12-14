@@ -23,6 +23,36 @@ export const updateCompany = async (args, context) => {
   })
 }
 
+export const createJob = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+  return context.entities.Job.create({
+    data: {
+      title: args.data.title,
+      description: args.data.description,
+      duration: args.data.duration,
+      link: args.data.link,
+      contract: args.data.contract,
+      compensation: args.data.compensation,
+      equity: args.data.equity,
+      benefits: args.data.benefits,
+      mvp: args.data.mvp,
+      location: args.data.location,
+      company: { connect: { id: args.companyId } }
+    }
+  })
+}
+
+export const updateJob = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+  return context.entities.Job.updateMany({
+    where: {
+      id: args.jobId,
+      company: { id: args.companyId }
+    },
+    data: args.data
+  })
+}
+
 export const createTask = async (args, context) => {
   if (!context.user) { throw new HttpError(401) }
   return context.entities.Task.create({
