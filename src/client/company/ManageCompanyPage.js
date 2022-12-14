@@ -30,7 +30,7 @@ const ManageCompanyPage = () => {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
-              <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link to="/dashboard" className="font-medium text-indigo-600 hover:text-indigo-500">
                 back to dashboard
               </Link>
             </p>

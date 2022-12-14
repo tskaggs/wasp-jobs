@@ -28,10 +28,30 @@ const JobsView = ({ companyId }) => {
 
   return (
     <>
-      <div>
-        <JobsList jobs={jobs} onOpen={onOpen} />
-        {openState && (<JobModal openState={openState} onClose={onClose} companyId={companyId} jobId={jobId}/>)}
-      </div>
+      <header className="bg-white shadow">
+        <div className="lg:flex lg:items-center lg:justify-between py-6 px-4 sm:px-6 lg:px-8">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+          </div>
+          <div className="mt-5 flex lg:mt-0 lg:ml-4">
+            <span className="sm:ml-3">
+              <button
+                onClick={() => onOpen({jobId: null})}
+                type="button"
+                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Add Job listings
+              </button>
+            </span>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <JobsList jobs={jobs} onOpen={onOpen} />
+          {openState && (<JobModal openState={openState} onClose={onClose} companyId={companyId} jobId={jobId}/>)}
+        </div>
+      </main>
     </>
   )
 }

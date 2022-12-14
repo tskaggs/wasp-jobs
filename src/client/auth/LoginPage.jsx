@@ -19,6 +19,11 @@ const LoginPage = () => {
             </p>
           </div>
           <LoginForm/>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+              Back to Home
+            </Link>
+          </p>
         </div>
       </div>
     </>

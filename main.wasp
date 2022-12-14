@@ -74,7 +74,12 @@ entity Task {=psl
     userId      Int
 psl=}
 
-route RootRoute { path: "/", to: MainPage }
+route RootRoute { path: "/", to: PublicPage }
+page PublicPage {
+  component: import Public from "@client/PublicPage"
+}
+
+route MainRoute { path: "/dashboard", to: MainPage }
 page MainPage {
   authRequired: true,
   component: import Main from "@client/MainPage"
@@ -137,24 +142,4 @@ action publishJob {
 query getJob {
   fn: import { getJob } from "@server/queries.js",
   entities: [Job]
-}
-
-query getTasks {
-  // We specify that JS implementation of the query (which is an async JS function)
-  // can be found in `src/server/queries.js` as the named export `getTasks`.
-  // Use '@server' to reference files inside the src/server folder.
-  fn: import { getTasks } from "@server/queries.js",
-  // We tell Wasp that this query is doing something with entity `Task`. With that, Wasp will
-  // automatically refresh the results of this query when tasks change.
-  entities: [Task]
-}
-
-action createTask {
-  fn: import { createTask } from "@server/actions.js",
-  entities: [Task]
-}
-
-action updateTask {
-  fn: import { updateTask } from "@server/actions.js",
-  entities: [Task]
 }

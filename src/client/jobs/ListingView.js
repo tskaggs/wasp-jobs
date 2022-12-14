@@ -31,7 +31,7 @@ const ListingView = ({onOpen, job, companyId}) => {
   }
 
   return (
-    <div className="lg:flex lg:items-center lg:justify-between">
+    <div className="lg:flex lg:items-center lg:justify-between py-3">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
           {job.title}

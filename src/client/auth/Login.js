@@ -15,7 +15,7 @@ const LoginForm = () => {
     try {
       await login(usernameFieldVal, passwordFieldVal)
       // Redirect to configured page, defaults to /.
-      history.push('/')
+      history.push('/dashboard')
     } catch (err) {
       console.log(err)
       window.alert(errorMessage(err))
