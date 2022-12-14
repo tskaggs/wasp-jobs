@@ -1,12 +1,22 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Switch } from '@headlessui/react'
+import { useQuery } from '@wasp/queries'
+
 import updateJob from '@wasp/actions/updateJob'
 import createJob from '@wasp/actions/createJob'
+import getJob from '@wasp/queries/getJob'
 
 const JobModal = ({ openState, onClose, jobId, companyId }) => {
-  console.log('jobId', jobId)
   let [isOpen, setIsOpen] = useState(openState ?? false)
+  
+  const {
+    data: job,
+    isFetching,
+    error
+  } = useQuery(getJob, {jobId})
+
+  console.log(error)
 
   async function closeModal(data) {
     setIsOpen(false)
@@ -72,18 +82,11 @@ const JobModal = ({ openState, onClose, jobId, companyId }) => {
                       Add or update job details here.
                     </p>
                   </div>
+                  {error && <div> Sorry something happened... </div>}
 
-                  <ManageJobView closeModal={closeModal} />
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
+                  {isFetching ? 
+                    (<div> Fetching job ... </div>):(<ManageJobView closeModal={closeModal} job={job} />)
+                  }
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -96,28 +99,19 @@ const JobModal = ({ openState, onClose, jobId, companyId }) => {
 
 const ManageJobView = ({
   closeModal,
-  title,
-  description,
-  duration,
-  link,
-  contract,
-  compensation,
-  equity,
-  location,
-  benefits,
-  mvp
+  job
 }) => {
   // const history = useHistory()
-  const [titleFieldVal, setTitleFieldVal] = useState(title || '')
-  const [descriptionFieldVal, setDescriptionFieldVal] = useState(description || '')
-  const [durationFieldVal, setDurationFieldVal] = useState(duration || '')
-  const [linkFieldVal, setLinkFieldVal] = useState(link || '')
-  const [contractFieldVal, setContractFieldVal] = useState(contract || false)
-  const [compensationFieldVal, setCompensationFieldVal] = useState(compensation || '')
-  const [equityFieldVal, setEquityFieldVal] = useState(equity || '')
-  const [locationFieldVal, setLocationFieldVal] = useState(location || '')
-  const [benefitsFieldVal, setBenefitsFieldVal] = useState(benefits || false)
-  const [mvpFieldVal, setMvpFieldVal] = useState(mvp || false)
+  const [titleFieldVal, setTitleFieldVal] = useState(job?.title || '')
+  const [descriptionFieldVal, setDescriptionFieldVal] = useState(job?.description || '')
+  const [durationFieldVal, setDurationFieldVal] = useState(job?.duration || '')
+  const [linkFieldVal, setLinkFieldVal] = useState(job?.link || '')
+  const [contractFieldVal, setContractFieldVal] = useState(job?.contract || false)
+  const [compensationFieldVal, setCompensationFieldVal] = useState(job?.compensation || '')
+  const [equityFieldVal, setEquityFieldVal] = useState(job?.equity || '')
+  const [locationFieldVal, setLocationFieldVal] = useState(job?.location || '')
+  const [benefitsFieldVal, setBenefitsFieldVal] = useState(job?.benefits || false)
+  const [mvpFieldVal, setMvpFieldVal] = useState(job?.mvp || false)
 
   const handleSave = async (event) => {
     event.preventDefault()

@@ -13,6 +13,8 @@ const ManageCompanyPage = () => {
     error
   } = useQuery(getCompany)
 
+  console.log('company', company)
+
   if (error) { return (<><div> Sorry something happened... </div></>) }
 
   return (

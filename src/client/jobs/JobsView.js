@@ -12,12 +12,17 @@ import JobModal from './JobModal'
 const JobsView = ({ companyId }) => {
   const { data: jobs } = useQuery(getJobs, {companyId})
   const [openState, setOpenState] = useState(false)
+  const [jobId, setJobId] = useState(null)
 
   const onClose = () => {
+    setJobId(null);
     setOpenState(false)
   }
 
-  const onOpen = () => {
+  const onOpen = ({jobId}) => {
+    if (jobId) {
+      setJobId(jobId);
+    }
     setOpenState(true)
   }
 
@@ -25,7 +30,7 @@ const JobsView = ({ companyId }) => {
     <>
       <div>
         <JobsList jobs={jobs} onOpen={onOpen} />
-        {openState && (<JobModal openState={openState} onClose={onClose} companyId={companyId} />)}
+        {openState && (<JobModal openState={openState} onClose={onClose} companyId={companyId} jobId={jobId}/>)}
       </div>
     </>
   )
@@ -46,8 +51,8 @@ const NoJobs = ({ onOpen }) => {
 }
 
 const JobsList = ({ jobs, onOpen }) => {
-  if (!jobs?.length) return (<NoJobs onOpen={() => onOpen()}/>)
-  return jobs.map((job, idx) => <ListingView task={job} key={idx} />)
+  if (!jobs?.length) return (<NoJobs onOpen={() => onOpen({jobId: null})}/>)
+  return jobs.map((job, idx) => <ListingView onOpen={() => onOpen({jobId: job.id})} job={job} key={idx} />)
 }
 
 export default JobsView
