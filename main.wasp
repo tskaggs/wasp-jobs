@@ -60,6 +60,7 @@ entity Job {=psl
     mvp         Boolean
     published   Boolean    @default(false)
     publishedAt DateTime?
+    closingAt   DateTime?
     createdAt   DateTime   @default(now())
     company     Company    @relation(fields: [companyId], references: [id])
     companyId   Int
@@ -127,6 +128,10 @@ action createJob {
 }
 action updateJob {
   fn: import { updateJob } from "@server/actions.js",
+  entities: [Job]
+}
+action publishJob {
+  fn: import { publishJob } from "@server/actions.js",
   entities: [Job]
 }
 query getJob {

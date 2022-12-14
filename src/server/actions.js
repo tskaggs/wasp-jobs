@@ -53,6 +53,22 @@ export const updateJob = async (args, context) => {
   })
 }
 
+export const publishJob = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+  const date =  new Date();
+  return context.entities.Job.updateMany({
+    where: {
+      id: args.jobId,
+      company: { id: args.companyId }
+    },
+    data: {
+      published: args.data.published,
+      publishedAt: date,
+      closingAt: new Date(date.setDate(date.getDate() + 30))
+    }
+  })
+}
+
 export const createTask = async (args, context) => {
   if (!context.user) { throw new HttpError(401) }
   return context.entities.Task.create({
