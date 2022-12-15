@@ -27,6 +27,10 @@ const ListingView = ({onOpen, job, companyId, isPublic}) => {
     }
   }
 
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+
   const formatDate = (date)  => {
     return new Date(date).toDateString()
   }
@@ -35,7 +39,7 @@ const ListingView = ({onOpen, job, companyId, isPublic}) => {
     <div className="lg:flex lg:items-center lg:justify-between p-3 my-3 border border-yellow-500 rounded bg-yellow-50">
       <div className="min-w-0 flex-1">
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-          {job.title} {isPublic && `at ${job.company.name}`}
+          {job.title} <span className="text-xl text-gray-700">{isPublic && `at ${job.company.name}`}</span>
         </h2>
         <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
           <div className="mt-2 flex items-center text-sm text-gray-500">
@@ -85,7 +89,12 @@ const ListingView = ({onOpen, job, companyId, isPublic}) => {
             <button
               onClick={() => publish()}
               type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className={
+                classNames(
+                  job.published ? 'bg-rose-400 hover:bg-rose-700 focus:ring-rose-500' : 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
+                    "inline-flex items-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  )
+              }
             >
               <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               {job.published ? 'Unpublish' : 'Publish'}
